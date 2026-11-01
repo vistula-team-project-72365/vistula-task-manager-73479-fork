@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Contribution</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #contributor-student-id {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Team Contribution</h1>
+
+  <button id="load-contributor">Show Contributor</button>
+
+  <p id="contributor-student-id"></p>
+
+  <p><a href="index.html">Back to Task Manager</a></p>
+
+  <script>
+    document.getElementById("load-contributor").addEventListener("click", function () {
+      fetch("contribution.json")
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("Could not load contribution.json");
+          }
+          return response.json();
+        })
+        .then(function (data) {
+          document.getElementById("contributor-student-id").textContent =
+            "Contributor Student ID: " + data.contributorStudentId;
+        })
+        .catch(function (error) {
+          document.getElementById("contributor-student-id").textContent = error.message;
+        });
+    });
+  </script>
+</body>
+</html>
